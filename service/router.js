@@ -14,5 +14,23 @@ export const Router = {
     if (addToHistory) {
       history.pushState({ route }, "", route);
     }
+    let pageElement = null;
+    switch (route) {
+      case "/":
+        pageElement = document.createElement("h1");
+        pageElement.textContent = "Home Page";
+        break;
+      case "/order":
+        break;
+      default:
+        break;
+    }
+    if (pageElement) {
+      const main = document.querySelector("main");
+      main.children[0]?.remove();
+      main.appendChild(pageElement);
+      window.scrollX = 0;
+      window.scrollY = 0;
+    }
   },
 };
