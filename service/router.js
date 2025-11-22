@@ -7,6 +7,10 @@ export const Router = {
         Router.go(url);
       });
     });
+    window.addEventListener("popstate", (e) => {
+      const route = e.state?.route || "/";
+      Router.go(route, false);
+    });
     Router.go(location.pathname);
   },
   go: (route, addToHistory = true) => {
@@ -23,6 +27,12 @@ export const Router = {
       case "/order":
         break;
       default:
+        if (route.startsWith("/product-")) {
+          pageElement = document.createElement("h1");
+          pageElement.textContent = `Details`;
+          const paramId = route.substring(route.lastIndexOf("-") + 1);
+          pageElement.dataset.id = paramId;
+        }
         break;
     }
     if (pageElement) {
